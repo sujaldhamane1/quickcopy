@@ -1,11 +1,14 @@
-
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import clipboardy from 'clipboardy';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = 3000;
+
+// Fix __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.get('/', (req, res) => {
     res.send('Welcome Bhaiji 😢!');
@@ -13,20 +16,16 @@ app.get('/', (req, res) => {
 
 app.get('/:slipid', (req, res) => {
     const slipid = req.params.slipid;
-    const sourceFile = path.join('./slips', `${slipid}.txt`);
+    const sourceFile = path.join(__dirname, 'slips', `${slipid}.txt`);
 
     fs.readFile(sourceFile, 'utf8', (err, data) => {
         if (err) {
-            return res.status(500).send('❌');
+            return res.status(500).send('❌ File Not Found');
         }
-        clipboardy.write(data).then(() => {
-            res.send('👋');
-        }).catch(() => {
-            res.status(500).send('Failed to copy text to clipboard');
-        });
+        res.send(`File Content:\n${data}`);
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
