@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+    <item>
+        <name>Pen</name>
+        <rate>10</rate>
+        <quantity>100</quantity>
+    </item>
+    <item>
+        <name>Notebook</name>
+        <rate>50</rate>
+        <quantity>50</quantity>
+    </item>
+    <item>
+        <name>Bag</name>
+        <rate>500</rate>
+        <quantity>20</quantity>
+    </item>
+</items>
+<?php
+$xml = simplexml_load_file("slip5item.xml"); // Load XML file
+foreach ($xml->item as $i) {
+    echo "📦 {$i->name} - 💰 {$i->rate} Rs - 📊 {$i->quantity} in stock <br>";
+}
+?>

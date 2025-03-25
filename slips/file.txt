@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book>
+        <title>Atomic Habits</title>
+        <author>James Clear</author>
+        <price>450</price>
+    </book>
+    <book>
+        <title>The Alchemist</title>
+        <author>Paulo Coelho</author>
+        <price>299</price>
+    </book>
+    <book>
+        <title>Rich Dad Poor Dad</title>
+        <author>Robert Kiyosaki</author>
+        <price>350</price>
+    </book>
+</books>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
+</head>
+<body>
+
+<select id="bookSelect">
+    <option value="">--Select a Book--</option>
+    <option value="Atomic Habits">Atomic Habits</option>
+    <option value="The Alchemist">The Alchemist</option>
+    <option value="Rich Dad Poor Dad">Rich Dad Poor Dad</option>
+</select>
+
+<p id="bookDetails"></p>
+
+<script>
+$("#bookSelect").change(function() {
+    let selectedBook = $(this).val();
+    if (!selectedBook) return; // If no book is selected, do nothing
+
+    $.ajax({
+        url: "books.xml",
+        dataType: "xml",
+        success: function(data) {
+            let bookInfo = "";
+            $(data).find("book").each(function() {
+                if ($(this).find("title").text() === selectedBook) {
+                    bookInfo = "📖 " + $(this).find("title").text() + 
+                               " - ✍️ " + $(this).find("author").text() + 
+                               " - 💰 " + $(this).find("price").text() + " Rs";
+                }
+            });
+            $("#bookDetails").html(bookInfo);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

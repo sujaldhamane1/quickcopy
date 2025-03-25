@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<movies>
+    <movie>
+        <no>1</no>
+        <title>js'df</title>
+        <acname>ajay</acname>
+        <ryear>2000</ryear>
+    </movie>
+    <movie>
+        <no>2</no>
+        <title>asdf</title>
+        <acname>ajay</acname>
+        <ryear>2000</ryear>
+    </movie>
+    <movie>
+        <no>3</no>
+        <title>posd;'df</title>
+        <acname>ajay</acname>
+        <ryear>2000</ryear>
+    </movie><movie>
+        <no>4</no>
+        <title>afsdafr</title>
+        <acname>ajay</acname>
+        <ryear>2000</ryear>
+    </movie>
+
+</movies>
+<?php
+
+$xml = new DOMDocument();
+$xml ->load("movie.xml");
+
+foreach($xml ->getElementsByTagName("movie") as $i){
+    
+    echo $i -> getElementsByTagName("no")[0]->nodeValue . " - " .
+    $i -> getElementsByTagName("title")[0]->nodeValue . 
+            $i -> getElementsByTagName("acname")[0]->nodeValue .
+             $i -> getElementsByTagName("ryear")[0]->nodeValue ."<br>";
+
+            
+}
+
+?>

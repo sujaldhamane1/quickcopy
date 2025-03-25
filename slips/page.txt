@@ -1,0 +1,47 @@
+
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['eno'] = $_POST['eno'];
+    $_SESSION['name'] = $_POST['name'];
+    $_SESSION['address'] = $_POST['address'];
+    header("Location: slip4pg2.php");
+}
+?>
+
+
+<form action="slip4pg1.php" method="post">
+    Eno: <input name="eno" ><br>
+    Name: <input name="name"><br>
+    Address: <input name="address"><br>
+    <button type="submit">Next</button>
+</form>
+
+
+
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['basic'] = $_POST['basic'];
+    $_SESSION['da'] = $_POST['da'];
+    $_SESSION['hra'] = $_POST['hra'];
+    header("Location: slip4pg3.php");
+}
+?>
+
+<form action="slip4pg2.php" method="post">
+    Basic Salary: <input name="basic" required><br>
+    DA: <input name="da" required><br>
+    HRA: <input name="hra" required><br>
+    <button type="submit">Submit</button>
+</form>
+
+
+<?php session_start();
+$total = $_SESSION['basic'] + $_SESSION['da'] + $_SESSION['hra'];
+echo " Employee Details:<br>
+      {$_SESSION['eno']} <br>
+     ️ {$_SESSION['name']} <br>
+      {$_SESSION['address']} <br>
+      Salary: $total";
+?>

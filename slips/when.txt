@@ -1,0 +1,100 @@
+1|John Doe|022-1234567|9876543210|123, ABC Street, Mumbai
+2|Jane Smith|022-7654321|9123456789|456, XYZ Road, Pune
+3|Rahul Sharma|022-1112233|9988776655|789, LMN Avenue, Nashik
+
+<?php
+header("Content-Type: application/json");
+
+$file = "contact.dat";
+$contacts = [];
+
+if (file_exists($file)) {
+    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    
+    foreach ($lines as $line) {
+        list($srno, $name, $residence, $mobile, $address) = explode("|", $line);
+        $contacts[] = [
+            "srno" => $srno,
+            "name" => $name,
+            "residence" => $residence,
+            "mobile" => $mobile,
+            "address" => $address
+        ];
+    }
+}
+
+echo json_encode($contacts);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contact List</h2>
+    <button id="printBtn">Print Contacts</button>
+    <table id="contactTable">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Name</th>
+                <th>Residence Number</th>
+                <th>Mobile Number</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $("#printBtn").click(function() {
+                $.ajax({
+                    url: "fetch_contacts.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        var tableBody = $("#contactTable tbody");
+                        tableBody.empty();
+
+                        data.forEach(function(contact) {
+                            var row = "<tr>" +
+                                "<td>" + contact.srno + "</td>" +
+                                "<td>" + contact.name + "</td>" +
+                                "<td>" + contact.residence + "</td>" +
+                                "<td>" + contact.mobile + "</td>" +
+                                "<td>" + contact.address + "</td>" +
+                                "</tr>";
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function() {
+                        alert("Error fetching contact data.");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

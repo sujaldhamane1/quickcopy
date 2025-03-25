@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book>
+        <name>dipu</name>
+        <price>999</price>
+        <author>dipuji</author>
+    </book>
+    <book>
+        <name>shepu</name>
+        <price>888</price>
+        <author>shepuji</author>
+    </book>
+    <book>
+        <name>bhau</name>
+        <price>777</price>
+        <author>bhauji</author>
+    </book>
+</books>
+<?php
+$xml = simplexml_load_file('book.xml'); // Load XML file
+foreach ($xml->book as $b) {
+    echo "{$b->name} -  {$b->price} Rs - ️ {$b->author} <br>";
+}
+?>

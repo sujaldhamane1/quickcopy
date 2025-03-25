@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.onload = () => alert(" Welcome! Enter your name.");
+
+        function checkName() {
+            let name = document.getElementById("name");
+            if (name.value) {
+                name.style.color = "red";
+                name.style.fontSize = "18px";
+            } else {
+                document.getElementById("img").style.display = "block";
+            }
+        }
+
+        function changeSize(size) {
+            document.getElementById("img").style.width = size;
+        }
+    </script>
+</head>
+<body>
+
+<input id="name" type="text" placeholder="Enter Name" onblur="checkName()"><br><br>
+
+<img id="img" src="https://via.placeholder.com/150" style="display:none;"
+     onmouseover="changeSize('200px')"
+     onmousedown="changeSize('250px')"
+     onmouseup="changeSize('150px')"
+     onclick="changeSize('180px')">
+
+</body>
+</html>

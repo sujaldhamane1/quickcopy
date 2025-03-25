@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bookstore>
+    <Yoga>
+        <Book>
+            <Book_Title>The Art of Yoga</Book_Title>
+            <Book_Author>Swami Ramdev</Book_Author>
+            <Book_Price>300</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Yoga for Beginners</Book_Title>
+            <Book_Author>Dr. Hitesh</Book_Author>
+            <Book_Price>250</Book_Price>
+        </Book>
+    </Yoga>
+
+    <Story>
+        <Book>
+            <Book_Title>The Alchemist</Book_Title>
+            <Book_Author>Paulo Coelho</Book_Author>
+            <Book_Price>299</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Harry Potter</Book_Title>
+            <Book_Author>J.K. Rowling</Book_Author>
+            <Book_Price>500</Book_Price>
+        </Book>
+    </Story>
+
+    <Technical>
+        <Book>
+            <Book_Title>Learn Python</Book_Title>
+            <Book_Author>Mark Lutz</Book_Author>
+            <Book_Price>600</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Web Development</Book_Title>
+            <Book_Author>Jon Duckett</Book_Author>
+            <Book_Price>550</Book_Price>
+        </Book>
+    </Technical>
+</Bookstore>

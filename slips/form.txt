@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function memb() {
+            let name = document.querySelector("#name").value;
+            let pass = document.querySelector("#pass").value;
+
+            if (name.length < 4) {
+                alert(" Enter a name longer than 3 characters!");
+                return;
+            }
+            if (pass.length < 6) {
+                alert(" Password must be longer than 5 characters!");
+                return;
+            }
+            alert(" Login Successful!");
+        }
+    </script>
+</head>
+<body>
+
+<form onsubmit="memb();">
+    <input id="name" type="text" placeholder="Enter Name"><br><br>
+    <input id="pass" type="password" placeholder="Enter Password"><br><br>
+    <button type="submit">Click Me</button>
+</form>
+
+</body>
+</html>

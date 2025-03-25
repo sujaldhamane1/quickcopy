@@ -1,0 +1,59 @@
+<form action="save_preferences.php" method="post">
+    Font Style: 
+    <select name="font">
+        <option>Arial</option>
+        <option>Verdana</option>
+        <option>Times New Roman</option>
+    </select><br><br>
+
+    Font Size: 
+    <select name="size">
+        <option>16px</option>
+        <option>20px</option>
+        <option>24px</option>
+    </select><br><br>
+
+    Font Color: <input type="color" name="color"><br><br>
+    Background Color: <input type="color" name="bgcolor"><br><br>
+
+    <button type="submit">Save Preferences</button>
+</form>
+
+<?php
+foreach ($_POST as $key => $value) {
+    setcookie($key, $value, time() + 3600); // Set cookies for 1 hour
+}
+header("Location: apply_preferences.php"); // Redirect to apply settings
+?>
+
+<?php
+$font = $_COOKIE['font'] ?? 'Arial';
+$size = $_COOKIE['size'] ?? '16px';
+$color = $_COOKIE['color'] ?? '#000000';
+$bgcolor = $_COOKIE['bgcolor'] ?? '#ffffff';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: <?= $font ?>;
+            font-size: <?= $size ?>;
+            color: <?= $color ?>;
+            background-color: <?= $bgcolor ?>;
+        }
+    </style>
+</head>
+<body>
+
+<h2> Your Preferences Applied!</h2>
+<p>Font: <?= $font ?></p>
+<p>Size: <?= $size ?></p>
+<p>Color: <?= $color ?></p>
+<p>Background: <?= $bgcolor ?></p>
+
+<a href="preferences.php">Change Preferences</a>
+
+</body>
+</html>

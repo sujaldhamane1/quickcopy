@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function fibonacci() {
+            let a = 0, b = 1, result = `0 1 `;
+            for (let i = 2; i < 10; i++) {
+                let next = a + b;
+                result += next + " ";
+                a = b;
+                b = next;
+            }
+            document.getElementById("output").innerText = result;
+        }
+    </script>
+</head>
+<body>
+
+<button onclick="fibonacci()">Show Fibonacci</button>  
+<p id="output"></p>  
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Live Suggestions</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #suggestions {
+            border: 1px solid #ccc;
+            max-width: 250px;
+            display: none;
+            position: absolute;
+            background: white;
+            z-index: 1000;
+        }
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .suggestion-item:hover {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Type a Name</h2>
+    <input type="text" id="searchBox" placeholder="Start typing..." autocomplete="off">
+    <div id="suggestions"></div>
+
+    <script>
+        $(document).ready(function() {
+            $("#searchBox").keyup(function() {
+                var query = $(this).val().trim();
+
+                if (query.length > 0) {
+                    $.ajax({
+                        url: "suggestions.php",
+                        type: "GET",
+                        data: { query: query },
+                        dataType: "json",
+                        success: function(data) {
+                            var suggestionBox = $("#suggestions");
+                            suggestionBox.empty().show();
+
+                            if (data.length > 0) {
+                                data.forEach(function(item) {
+                                    suggestionBox.append("<div class='suggestion-item'>" + item + "</div>");
+                                });
+
+                                $(".suggestion-item").click(function() {
+                                    $("#searchBox").val($(this).text());
+                                    suggestionBox.hide();
+                                });
+                            } else {
+                                suggestionBox.append("<div class='suggestion-item'>No matches found</div>");
+                            }
+                        },
+                        error: function() {
+                            console.log("Error fetching suggestions");
+                        }
+                    });
+                } else {
+                    $("#suggestions").hide();
+                }
+            });
+
+            $(document).click(function(e) {
+                if (!$(e.target).closest("#searchBox, #suggestions").length) {
+                    $("#suggestions").hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+<?php
+header("Content-Type: application/json");
+
+// Sample array of suggestions (can be replaced with database records)
+$suggestions = [
+    "John Doe", "Jane Smith", "Michael Johnson", "Emily Davis", 
+    "Chris Brown", "David Wilson", "Sophia Anderson", "Daniel Lee",
+    "Olivia Taylor", "James Martinez", "William Thomas", "Charlotte White"
+];
+
+$searchTerm = isset($_GET['query']) ? strtolower(trim($_GET['query'])) : "";
+
+$matches = [];
+if (!empty($searchTerm)) {
+    foreach ($suggestions as $item) {
+        if (stripos($item, $searchTerm) === 0) { // Match starting letters
+            $matches[] = $item;
+        }
+    }
+}
+
+echo json_encode($matches);
+?>

@@ -1,0 +1,17 @@
+<!--Write a JavaScript to display message ‘Exams are near, have you started preparing for?’ (usealert
+box ) and Accept any two numbers from user and display addition of two number .(Use Prompt and
+confirm box) -->
+<script>
+  
+alert("Exams are near, have you started preparing for?")  ;
+
+let a = prompt("input first num");
+let b = prompt("input second num");
+
+let sum = Number(a) + Number(b);
+if(confirm("do you want to see the sum")){
+    alert("see sum"+sum);
+}
+
+</script>
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery CDN -->
+</head>
+<body>
+
+<p id="text">This is a paragraph.</p>  
+<button id="btn">Click Me</button>  
+
+<script>
+$("#btn").click(() => {
+    $("#text").before("?Before ");
+    $("#text").after(" After ?");
+});
+</script>
+
+</body>
+</html>
