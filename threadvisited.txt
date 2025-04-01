@@ -1,0 +1,20 @@
+//Write a java program to display name and priority of a Thread
+
+class Priority extends Thread{
+    
+    Priority(String name,int pri){
+      super(name);
+      setPriority(pri);
+    }
+    public void run(){
+        System.out.println("the name is" + getName() + "priority is" + getPriority()); 
+    }
+    
+}
+
+public class Slip15q1{
+    public static void main(String[] args) {
+       Priority t1 = new Priority("Sujii",8);
+       t1.start();
+    }
+}

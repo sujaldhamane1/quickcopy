@@ -1,0 +1,19 @@
+class AlphabetThread extends Thread {
+    public void run() {
+        for (char c = 'A'; c <= 'Z'; c++) {
+            System.out.print(c + " ");
+            try {
+                Thread.sleep(2000); // 2 seconds delay
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+public class AlphabetDisplay {
+    public static void main(String[] args) {
+        AlphabetThread thread = new AlphabetThread();
+        thread.start();
+    }
+}

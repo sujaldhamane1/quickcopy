@@ -1,0 +1,66 @@
+import javax.swing.*;
+
+public class BlinkingText implements Runnable {
+    JLabel label;
+
+    public BlinkingText() {
+        label = new JLabel("Blinking Text", SwingConstants.CENTER);
+        JFrame frame = new JFrame();
+        frame.setSize(300, 200);
+        frame.add(label);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                label.setVisible(!label.isVisible());
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        BlinkingText blink = new BlinkingText();
+        Thread t = new Thread(blink);
+        t.start();
+    }
+}
+
+
+
+
+
+
+
+import java.util.*;
+
+public class CitySTD {
+    public static void main(String[] args) {
+        Set<Map.Entry<String, Integer>> cities = new HashSet<>();
+
+        // i. Add a new city and its code (No duplicates)
+        cities.add(new AbstractMap.SimpleEntry<>("Mumbai", 22));
+        cities.add(new AbstractMap.SimpleEntry<>("Delhi", 11));
+
+        // ii. Remove a city
+        cities.removeIf(entry -> entry.getKey().equals("Delhi"));
+
+        // iii. Search for a city and display its code
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter city: ");
+        String city = sc.nextLine();
+        for (Map.Entry<String, Integer> entry : cities) {
+            if (entry.getKey().equals(city)) {
+                System.out.println("STD Code for " + city + ": " + entry.getValue());
+                return;
+            }
+        }
+        System.out.println("City not found!");
+        sc.close();
+    }
+}

@@ -1,0 +1,26 @@
+class PrintThread extends Thread{
+    int n;
+    String text;
+    PrintThread(String text,int n){
+        this.text = text;
+        this.n=n;
+    }
+    public void run(){
+        for (int i = 0; i <= n; i++) {
+            System.out.println(text);
+        }
+ 
+    }
+}
+public class Slip8q1{
+    public static void main(String[] args) {
+        
+        PrintThread p1 = new PrintThread("COVID19",10);        p1.start();
+
+        PrintThread p2 = new PrintThread("LOCKDOWN2020",20);        p2.start();
+
+        PrintThread p3 = new PrintThread("VACCINATED2021",30);        p3.start();
+
+
+    }
+}

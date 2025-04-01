@@ -1,0 +1,109 @@
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class SubjectNames {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Create LinkedList to store subjects
+        LinkedList<String> subjects = new LinkedList<>();
+
+        // Accept number of subjects to input
+        System.out.print("Enter the number of subjects: ");
+        int n = sc.nextInt();
+        sc.nextLine();  // Consume the newline character
+
+        // Accept 'n' subjects from the user
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter subject name: ");
+            String subject = sc.nextLine();
+            subjects.add(subject);
+        }
+
+        // Display the subject names using Iterator
+        Iterator<String> iterator = subjects.iterator();
+        System.out.println("\nSubjects entered are:");
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+
+        sc.close();
+    }
+}
+
+
+
+
+
+
+
+class SharedData {
+    private int value = 0;
+
+    // Method for producer to produce a value
+    public synchronized void produce() throws InterruptedException {
+        value++;
+        System.out.println("Produced: " + value);
+        notify(); // Notify consumer
+        wait(); // Wait until consumer consumes
+    }
+
+    // Method for consumer to consume the value
+    public synchronized void consume() throws InterruptedException {
+        wait(); // Wait until producer produces
+        System.out.println("Consumed: " + value);
+        notify(); // Notify producer
+    }
+}
+
+class Producer extends Thread {
+    SharedData data;
+
+    public Producer(SharedData data) {
+        this.data = data;
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                data.produce();
+                Thread.sleep(1000); // Simulate time to produce
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Consumer extends Thread {
+    SharedData data;
+
+    public Consumer(SharedData data) {
+        this.data = data;
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                data.consume();
+                Thread.sleep(1500); // Simulate time to consume
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class SimpleProducerConsumer {
+    public static void main(String[] args) {
+        SharedData data = new SharedData();
+
+        // Create producer and consumer threads
+        Thread producer = new Producer(data);
+        Thread consumer = new Consumer(data);
+
+        producer.start();
+        consumer.start();
+    }
+}

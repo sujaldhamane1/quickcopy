@@ -1,0 +1,24 @@
+// Thread ka naam print karne ke liye ek multithreading program
+
+
+class Print extends Thread{
+
+    public void run(){
+        System.out.println("thread name is " + Thread.currentThread().getName());
+    }
+}
+
+
+public class Slip28q2{
+    public static void main(String[] args) {
+       Print t1 = new Print();
+       Print t2 = new Print();
+       
+       t1.setName("sujiii");
+       t2.setName("Dipu");
+       
+       t1.start();
+       t2.start();
+
+               }
+}

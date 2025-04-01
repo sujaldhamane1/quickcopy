@@ -1,0 +1,31 @@
+
+//String. Each vowel should be displayed after every 3 seconds.
+
+class VowelsPrint extends Thread{
+    String text;
+    VowelsPrint(String text){
+        this.text = text;
+    }
+   public void run(){
+        String Vowels = "AEIOUaeiou";
+        for(int i = 0; i < text.length(); i++) {
+           char ch = text.charAt(i);
+           if(Vowels.contains(ch + "")){
+               System.out.println(ch + "");
+           }
+           try{
+             Thread.sleep(3000);
+           }
+           catch(InterruptedException e){
+               
+           }
+       }
+    }
+}
+
+public class Slip18q1{
+    public static void main(String[] args) {
+        VowelsPrint t1 = new VowelsPrint("Motej");
+        t1.start();
+    }
+}

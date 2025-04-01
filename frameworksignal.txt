@@ -1,0 +1,90 @@
+import java.util.*;
+
+public class SortedCollection {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Set<Integer> numbers = new TreeSet<>(); // TreeSet stores elements in sorted order and prevents duplicates
+
+        System.out.print("Enter the number of elements: ");
+        int n = scanner.nextInt();
+
+        // Accept 'n' integers from the user
+        System.out.println("Enter " + n + " integers:");
+        for (int i = 0; i < n; i++) {
+            numbers.add(scanner.nextInt());
+        }
+
+        // Display the elements in sorted order
+        System.out.println("Sorted Elements: " + numbers);
+
+        // Search for a specific element
+        System.out.print("Enter an element to search: ");
+        int searchElement = scanner.nextInt();
+
+        if (numbers.contains(searchElement)) {
+            System.out.println(searchElement + " is present in the collection.");
+        } else {
+            System.out.println(searchElement + " is not found in the collection.");
+        }
+
+        scanner.close();
+    }
+}
+
+
+
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class TrafficSignalSimulation extends JFrame implements Runnable {
+    private JPanel signalPanel;
+    private Color currentColor;
+
+    public TrafficSignalSimulation() {
+        signalPanel = new JPanel();
+        signalPanel.setPreferredSize(new Dimension(200, 400));
+        signalPanel.setBackground(Color.BLACK);
+        add(signalPanel);
+
+        setTitle("Traffic Signal Simulation");
+        setSize(250, 450);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        currentColor = Color.RED;
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                // Simulate Red, Yellow, and Green lights with delays
+                if (currentColor == Color.RED) {
+                    signalPanel.setBackground(Color.RED);
+                    currentColor = Color.GREEN;
+                    Thread.sleep(3000); // Red light for 3 seconds
+                } else if (currentColor == Color.GREEN) {
+                    signalPanel.setBackground(Color.GREEN);
+                    currentColor = Color.YELLOW;
+                    Thread.sleep(5000); // Green light for 5 seconds
+                } else if (currentColor == Color.YELLOW) {
+                    signalPanel.setBackground(Color.YELLOW);
+                    currentColor = Color.RED;
+                    Thread.sleep(2000); // Yellow light for 2 seconds
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        TrafficSignalSimulation frame = new TrafficSignalSimulation();
+        Thread signalThread = new Thread(frame);
+        signalThread.start();
+    }
+}

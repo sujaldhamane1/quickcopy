@@ -1,0 +1,61 @@
+import javax.swing.*;
+import java.awt.*;
+
+class TempleDrawingRunnable implements Runnable {
+    private JPanel panel;
+
+    public TempleDrawingRunnable(JPanel panel) {
+        this.panel = panel;
+    }
+
+    @Override
+    public void run() {
+        // Infinite loop to continuously draw the temple (for demonstration)
+        while (true) {
+            try {
+                panel.repaint();
+                Thread.sleep(1000); // Redraw every second
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class TempleDrawingApp {
+    public static void main(String[] args) {
+        // Create JFrame for window
+        JFrame frame = new JFrame("Temple Drawing");
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create JPanel to draw the temple
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // Draw the temple structure (simple representation)
+                g.setColor(Color.DARK_GRAY);
+                g.fillRect(150, 200, 200, 100); // Temple base
+
+                g.setColor(Color.RED);
+                g.fillRect(170, 150, 160, 50); // Roof of the temple
+
+                g.setColor(Color.YELLOW);
+                g.fillRect(180, 250, 140, 100); // Entrance door
+
+                g.setColor(Color.BROWN);
+                g.fillRect(230, 250, 20, 50); // Door handle
+            }
+        };
+
+        frame.add(panel);
+        frame.setVisible(true);
+
+        // Start the thread to animate the drawing
+        TempleDrawingRunnable templeRunnable = new TempleDrawingRunnable(panel);
+        Thread templeThread = new Thread(templeRunnable);
+        templeThread.start();
+    }
+}

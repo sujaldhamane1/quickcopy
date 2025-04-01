@@ -1,0 +1,65 @@
+import javax.swing.*;
+import java.awt.*;
+
+class IndianFlagPanel extends JPanel {
+    // Method to draw the flag
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        // Drawing the flag
+        // Orange (Saffron) Rectangle
+        g.setColor(new Color(255, 153, 51)); // Saffron color
+        g.fillRect(50, 50, 400, 100);
+        
+        // White Rectangle
+        g.setColor(Color.WHITE);
+        g.fillRect(50, 150, 400, 100);
+        
+        // Green Rectangle
+        g.setColor(Color.GREEN);
+        g.fillRect(50, 250, 400, 100);
+        
+        // Blue Circle in the middle (Ashoka Chakra)
+        g.setColor(Color.BLUE);
+        g.fillOval(200, 150, 50, 50);
+    }
+}
+
+class FlagDrawingThread extends Thread {
+    private final JPanel panel;
+    
+    FlagDrawingThread(JPanel panel) {
+        this.panel = panel;
+    }
+
+    @Override
+    public void run() {
+        try {
+            // Wait for 1 second, then draw each section of the flag in separate steps
+            Thread.sleep(1000);
+            panel.repaint();  // Redraw the flag
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class IndianFlag {
+    public static void main(String[] args) {
+        // Creating JFrame for the Flag
+        JFrame frame = new JFrame("Indian Flag");
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Adding the flag drawing panel
+        IndianFlagPanel panel = new IndianFlagPanel();
+        frame.add(panel);
+        
+        // Show the frame
+        frame.setVisible(true);
+
+        // Create and start the thread for drawing the flag
+        FlagDrawingThread flagThread = new FlagDrawingThread(panel);
+        flagThread.start();
+    }
+}

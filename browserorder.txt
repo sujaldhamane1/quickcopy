@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class FriendNames {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter number of friends: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        HashSet<String> friends = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter friend name " + (i + 1) + ": ");
+            String name = scanner.nextLine();
+            friends.add(name);
+        }
+        List<String> sortedFriends = new ArrayList<>(friends);
+        Collections.sort(sortedFriends);
+        System.out.println("\nFriends names in ascending order:");
+        for (String friend : sortedFriends) {
+            System.out.println(friend);
+        }
+        scanner.close();
+    }
+}

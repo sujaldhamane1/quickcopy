@@ -1,0 +1,50 @@
+
+class RandomNum extends Thread{
+    int num;
+    public void run(){
+        while(true){
+            num = (int)(Math.random()*100);
+            System.out.println("the rand num is"+num);
+            if(num % 2 == 0){
+                EvenSq t1 = new EvenSq(num);
+                t1.start();
+            }else{
+                OddCube t2 = new OddCube(num);
+                t2.start();
+            }
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e){
+                
+            }
+        }
+    }
+}
+class EvenSq extends Thread{
+    int num;
+    EvenSq(int num){
+    this.num = num;
+}
+ public void run(){
+     System.out.println("the even num square is"+num*num);  
+  }  
+}
+
+class OddCube extends Thread{
+    int num;
+      OddCube(int num){
+       this.num=num;
+}
+   public void run(){
+               System.out.println("the odd num cube is"+num*num*num);  
+
+  }  
+ 
+}
+
+public class Slip7a{
+    public static void main(String[] args) {
+        RandomNum op = new RandomNum();
+        op.start();
+    }
+}

@@ -1,0 +1,92 @@
+import java.util.*;
+
+public class Slip17q1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Set<Integer> numbers = new TreeSet<>(); // TreeSet -> Sorted & No Duplicates
+
+        System.out.print("Enter how many numbers: ");
+        int n = sc.nextInt();
+
+        System.out.println("Enter " + n + " numbers:");
+        for (int i = 0; i < n; i++) 
+            numbers.add(sc.nextInt()); // Directly adds (No Duplicates)
+
+        System.out.println("Sorted Unique Numbers: " + numbers);
+        sc.close();
+    }
+}
+
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class NumberDisplayRunnable implements Runnable {
+    private JTextField textField;
+
+    public NumberDisplayRunnable(JTextField textField) {
+        this.textField = textField;
+    }
+
+    @Override
+    public void run() {
+        int number = 1;
+        while (true) {
+            try {
+                // Display the current number in the JTextField
+                textField.setText(String.valueOf(number));
+                number++;
+                if (number > 100) {
+                    number = 1; // Reset back to 1 after reaching 100
+                }
+
+                // Pause for 1 second (1000 milliseconds)
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // Handle interruption
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+public class NumberDisplayApp {
+    public static void main(String[] args) {
+        // Create JFrame
+        JFrame frame = new JFrame("Number Display");
+        frame.setSize(300, 150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
+
+        // Create JTextField to display numbers
+        JTextField textField = new JTextField(10);
+        textField.setEditable(false);
+        frame.add(textField);
+
+        // Create JButton to start displaying numbers
+        JButton startButton = new JButton("Start Displaying Numbers");
+        frame.add(startButton);
+
+        // Add action listener to the button
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and start the thread to display numbers
+                Runnable numberDisplay = new NumberDisplayRunnable(textField);
+                Thread numberThread = new Thread(numberDisplay);
+                numberThread.start();
+            }
+        });
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
+}

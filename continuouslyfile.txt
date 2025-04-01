@@ -1,0 +1,45 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class ScrollingText extends JFrame implements Runnable {
+    private String text = "This is a scrolling text from left to right!";
+    private int xPosition = 0;
+    private Thread thread;
+
+    public ScrollingText() {
+        setTitle("Scrolling Text");
+        setSize(600, 100);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        thread = new Thread(this);
+        thread.start();  // Start the scrolling thread
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setFont(new Font("Arial", Font.PLAIN, 30));
+        g.drawString(text, xPosition, 50);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            xPosition--; // Move the text left
+            if (xPosition < -getFontMetrics(getFont()).stringWidth(text)) {
+                xPosition = getWidth(); // Reset to start position
+            }
+            repaint(); // Repaint the frame to move text
+            try {
+                Thread.sleep(30); // Control speed of scrolling
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new ScrollingText();  // Create and show the scrolling text
+    }
+}

@@ -1,0 +1,26 @@
+
+class Lifecycle extends Thread{
+    Lifecycle(String name){
+        super(name);
+    }
+    public void run(){
+     int sleeptime = (int)(Math.random()*5000);
+        System.out.println("the name is" + getName() + "sleep time is" + sleeptime);
+        try{
+            Thread.sleep(sleeptime);
+        }catch(InterruptedException e){
+            
+        }
+        System.out.println(getName() +"the person is dead");
+    }
+    
+    
+}
+
+public class Slip13q2{
+    public static void main(String[] args) {
+        
+        Lifecycle t1 = new Lifecycle("Mohit");
+        t1.start();
+    }
+}
